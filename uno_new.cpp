@@ -14,7 +14,7 @@ int turn=0;
 
 class Output{
 	public:
-	void print_possible(){ // for reference, prints your deck's split in color,number and power w.r.t pile's top card
+	void print_possible(){ // prints your deck's split in color,number and power w.r.t pile's top card
 		cout << "Same color : ";
 		for(auto it=state[0].begin();it!=state[0].end();it++){
 			cout << *it << ' ';
@@ -43,7 +43,6 @@ class Output{
 			s[0]='3';
 		}
 		cout<<"\033[1;3"<<s[0]<<"m"<<s.substr(1,s.size()-1)<<"\033[0m"<<' ';
-		// cout<<"\033[1;3"<<s[0]<<"m"<<s<<"\033[0m";
 	}
 
 	void print_top_card(){ // pretty print pile's top card
@@ -438,7 +437,6 @@ class Game{
 
 	void comp_to_player(bool again=0){
 		get_move(comp);
-		// out.print_possible();
 		bool change=0,done=0;
 
 		bool b0=state[0].empty();
@@ -559,7 +557,7 @@ class Game{
 
 
 
-void display();
+void display_message();
 int main(){
 	srand(time(NULL));
 	make_deck();
@@ -567,31 +565,32 @@ int main(){
 	get_pile();
 
 	system("clear");
-	display();
+	display_message();
 	int moves=0;
 	if(cin.get()=='\n'){
 		system("clear");
 		while(!game_over()){
-			cout << "\n\n";
+			// print the current game's state
 			out.show_comp();
 			out.print_top_card();
 			out.print_player();
 			if(turn==0){
-				cout << "\n====PLAYER TO COMPUTER===\n";
+				cout << "\n====PLAYER TO COMPUTER====\n";
 				g.player_to_comp();
 			}
 			else{
 				system("clear");
-				cout << "\n====COMPUTER TO PLAYER===\n";
+				cout << "\n====COMPUTER TO PLAYER====\n";
 				g.comp_to_player();
 			}
 			turn^=1;
+			// switching turns b/n player and computer
 		}
 	}
 
 	return 0;
 }
-void display(){
+void display_message(){
 	cout<<"\nWelcome to UNO.\n";
     cout<<"The game starts off with 7 deck for each, and the aim is to drop all your deck\n";
     cout<<"\nInstructions:\nThe number in the middle top of each card is its index.";
